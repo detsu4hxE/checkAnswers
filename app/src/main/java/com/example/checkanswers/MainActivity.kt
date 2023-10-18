@@ -18,7 +18,11 @@ class MainActivity : AppCompatActivity() {
     var cw = 0
     var ca = 0
 
+    var startTime = System.currentTimeMillis()
+    var finishTime = System.currentTimeMillis()
+
     fun start(view: View){
+        startTime = System.currentTimeMillis()
         var a = (10..99).random()
         var b = (10..99).random()
         var c = (0..3).random()
@@ -65,6 +69,7 @@ class MainActivity : AppCompatActivity() {
         binding.linearLayout.setBackgroundColor(Color.TRANSPARENT)
     }
     fun checkRight(view: View){
+        finishTime = System.currentTimeMillis()
         ct++
         if (ca == r){
             cr++
@@ -85,6 +90,7 @@ class MainActivity : AppCompatActivity() {
         binding.result.isEnabled = false
     }
     fun checkWrong(view: View){
+        finishTime = System.currentTimeMillis()
         ct++
         if (ca != r){
             cr++
@@ -97,8 +103,13 @@ class MainActivity : AppCompatActivity() {
         binding.tasksNumber.text = ct.toString()
         binding.rightAnswersNum.text = cr.toString()
         binding.wrongAnswersNum.text = cw.toString()
+
         var p: Double = Math.round(cr.toDouble() / ct * 10000) / 100.0
         binding.percentNum.text = p.toString() + "%"
+
+        var totalTime = finishTime-startTime
+
+
         binding.rightButton.isEnabled = false
         binding.wrongButton.isEnabled = false
         binding.startButton.isEnabled = true
